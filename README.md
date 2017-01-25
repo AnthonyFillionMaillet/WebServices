@@ -45,7 +45,7 @@ package hello;
 
 import javax.jws.WebService;
 
-@WebService(endpointInterface = "fr.paris10.miage.procs.exercice1.HelloWorld")
+@WebService(endpointInterface = CalculetteInterface)
 public class HelloWorldImpl implements HelloWorld {
     @Override
     public String bonjour(String name) {

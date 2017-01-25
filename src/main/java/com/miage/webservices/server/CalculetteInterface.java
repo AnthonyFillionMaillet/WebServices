@@ -1,4 +1,4 @@
-package com.miage.webservices;
+package com.miage.webservices.server;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -10,6 +10,7 @@ import javax.jws.soap.SOAPBinding;
 
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC)
-public interface HelloWorld {
-    @WebMethod String bonjour(String name);
+public interface CalculetteInterface {
+    @WebMethod double ajouter(double a, double b);
+    @WebMethod double soustraire(double a, double b);
 }
