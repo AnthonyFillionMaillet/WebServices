@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" build-on-make="true" name="WebServices:war Exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/WebServices_war_Exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="WebServices" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
