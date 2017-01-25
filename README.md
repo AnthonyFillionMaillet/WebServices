@@ -1,10 +1,6 @@
 # WEB SERVICES
 
-version 0.2 (2016)
-
-Pascal Poizat<br/>
-Université Paris Ouest Nanterre la Défense<br/>
-[http://lip6.fr/Pascal.Poizat](http://lip6.fr/Pascal.Poizat/)<br/>
+TD PROCS
 
 ## I. Démarrage en douceur
 
