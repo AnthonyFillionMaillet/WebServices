@@ -9,6 +9,6 @@ import javax.xml.ws.Endpoint;
  */
 public class SystemePublisher {
     public static void main(String[] args) {
-        Endpoint.publish("http://localhost:9999/ws/saam", new CalculetteImpl());
+        Endpoint.publish("http://localhost:9999/ws/saam", new SystemeAmendesImpl());
     }
 }

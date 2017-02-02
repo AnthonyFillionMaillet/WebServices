@@ -29,10 +29,10 @@ public class Voiture implements Serializable {
     public String toString() {
         String rtr = modele + " " + immatriculation;
         if(proprietaire != null) {
-            rtr += "\n" + "possédée par " + proprietaire;
+            rtr += "\n" + "possédée par " + proprietaire + "\n";
         }
         else {
-            rtr += "\n" + "pas de propriétaire connu";
+            rtr += "\n" + "pas de propriétaire connu" + "\n";
         }
         return rtr;
     }

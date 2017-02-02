@@ -9,6 +9,8 @@ import com.miage.webservices.exo2.server.SystemeAmendes;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by anthony on 25/01/2017.
@@ -22,31 +24,53 @@ public class SystemeClient {
         SystemeAmendes sys = service.getPort(SystemeAmendes.class);
 
         Voiture v1 = new Voiture("AB 123 CD", "Clio 3");
-        sys.enregistrer(v1);
         Voiture v2 = new Voiture("AB 124 CD", "Punto");
-        sys.enregistrer(v2);
 
         Personne p1 = new Personne("Sponge", "Bob", "");
-        v1.setProprietaire(p1);
         Personne p2 = new Personne("Haddock", "Capitaine", "");
+
+        v1.setProprietaire(p1);
         v2.setProprietaire(p2);
 
-        System.out.println("Voiture enregistrée\n" + v1.toString());
-        System.out.println("Voiture enregistrée\n" + v2.toString());
+        sys.enregistrer(v1);
+        sys.enregistrer(v2);
 
         Amende a1 = new Amende("AB 123 CD", 90);
-        int result = sys.signaler(a1.getImmatriculation(), v1.getModele(), 90);
-        if(result != -1)
-            System.out.println("Amende enregistrée\n" + a1.toString());
+        int result = sys.signaler(a1.getImmatriculation(), v1.getModele(), a1.getTarif());
+        System.out.println("Amende n°" + result + " enregistrée");
 
         Amende a2 = new Amende("AB 123 CD", 140);
-        result = sys.signaler(a1.getImmatriculation(), "Tracteur", 90);
-        if(result != -1)
-            System.out.println("Amende enregistrée\n" + a1.toString());
+        result = sys.signaler(a2.getImmatriculation(), "Tracteur", a2.getTarif());
+        System.out.println("Amende n°" + result + " enregistrée");
 
         Amende a3 = new Amende("AB 123 CD", 140);
-        result = sys.signaler(v1.getImmatriculation(), v1.getModele(), 90);
-        if(result != -1)
-            System.out.println("Amende enregistrée\n" + a1.toString());
+        result = sys.signaler(a3.getImmatriculation(), v1.getModele(), a3.getTarif());
+        System.out.println("Amende n°" + result + " enregistrée");
+
+        System.out.println("Listing des amendes pour " + v1.getImmatriculation());
+        for(Amende a : sys.lister(v1.getImmatriculation())){
+            if(a.getImmatriculation() != null) {
+                System.out.println("Amende n°" + a.getNumero() + " de " + a.getTarif() + " EUR pour " + a.getImmatriculation());
+            }
+        }
+
+        sys.payer(1, "Capitaine", "Haddock");
+
+        System.out.println("Listing des amendes pour " + v1.getImmatriculation());
+        for(Amende a : sys.lister(v1.getImmatriculation())){
+            if(a.getImmatriculation() != null) {
+                System.out.println("Amende n°" + a.getNumero() + " de " + a.getTarif() + " EUR pour " + a.getImmatriculation());
+            }
+        }
+
+        sys.payer(1, "Sponge", "Bob");
+
+        System.out.println("Listing des amendes pour " + v1.getImmatriculation());
+        for(Amende a : sys.lister(v1.getImmatriculation())){
+            if(a.getImmatriculation() != null) {
+                System.out.println("Amende n°" + a.getNumero() + " de " + a.getTarif() + " EUR pour " + a.getImmatriculation());
+            }
+        }
+
     }
 }

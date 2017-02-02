@@ -6,6 +6,7 @@ import com.miage.webservices.exo2.radars.Voiture;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +18,6 @@ import java.util.List;
 public interface SystemeAmendes {
     @WebMethod void enregistrer(Voiture v);
     @WebMethod int signaler(String immatriculation, String modele, int tarif);
-    @WebMethod List<Amende> lister(String immatriculation);
-    @WebMethod int payer(int numero, String nom, String prenom);
+    @WebMethod Amende[] lister(String immatriculation);
+    @WebMethod void payer(int numero, String nom, String prenom);
 }

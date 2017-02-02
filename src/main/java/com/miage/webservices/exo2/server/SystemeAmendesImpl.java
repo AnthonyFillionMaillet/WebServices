@@ -10,6 +10,9 @@ import java.util.List;
 /**
  * Created by anthony on 25/01/2017.
  */
+import javax.jws.WebService;
+
+@WebService(endpointInterface = "com.miage.webservices.exo2.server.SystemeAmendes")
 public class SystemeAmendesImpl implements SystemeAmendes{
     List<Voiture> listVoitureEnregistrees = new ArrayList<>();
     List<Amende> listAmende = new ArrayList<>();
@@ -17,13 +20,16 @@ public class SystemeAmendesImpl implements SystemeAmendes{
     @Override
     public void enregistrer(Voiture v) {
         listVoitureEnregistrees.add(v);
+        System.out.println("Voiture enregistrée\n" + v.toString());
     }
 
     @Override
     public int signaler(String immatriculation, String modele, int tarif) {
         for(Voiture v : listVoitureEnregistrees){
             if(v.getImmatriculation().equals(immatriculation) && v.getModele().equals(modele)){
-                listAmende.add(new Amende(immatriculation, tarif));
+                Amende a = new Amende(immatriculation, tarif);
+                listAmende.add(a);
+                System.out.println("Amende enregistrée\n" + a.toString());
                 return listAmende.get(listAmende.size() - 1).getNumero();
             }
         }
@@ -31,26 +37,35 @@ public class SystemeAmendesImpl implements SystemeAmendes{
     }
 
     @Override
-    public List<Amende> lister(String immatriculation) {
-        List<Amende> amendes = new ArrayList<>();
+    public Amende[] lister(String immatriculation) {
+        int i = 0;
+        Amende[] amendes = new Amende[80];
         for(Voiture v : listVoitureEnregistrees){
             if(v.getImmatriculation().equals(immatriculation)){
                 for(Amende a : listAmende){
                     if(a.getImmatriculation().equals(immatriculation)){
-                         amendes.add(a);
+                        amendes[i] = a;
+                        i++;
                     }
                 }
             }
         }
-        if(!amendes.isEmpty())
-            return amendes;
-        else
-            return null;
+
+        return amendes;
     }
 
     @Override
-    public int payer(int numero, String nom, String prenom) {
-        listAmende.remove(numero - 1);
-        return 0;
+    public void payer(int numero, String nom, String prenom) {
+        Amende amende = listAmende.get(numero - 1);
+
+        for(Voiture v : listVoitureEnregistrees){
+            if(amende.getImmatriculation().equals(v.getImmatriculation())){
+                if(v.getProprietaire().getNom().equals(nom)
+                        && v.getProprietaire().getPrenom().equals(prenom)){
+                    System.out.println("Amende payée\n" + amende.toString());
+                    listAmende.remove(numero - 1);
+                }
+            }
+        }
     }
 }

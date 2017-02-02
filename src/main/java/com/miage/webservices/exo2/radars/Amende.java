@@ -34,6 +34,6 @@ public class Amende implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Amende n°%d de %d EUR pour %s",numero,tarif,immatriculation);
+        return String.format("Amende n°%d de %d EUR pour %s",numero,tarif,immatriculation + "\n");
     }
 }
